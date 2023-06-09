@@ -30,7 +30,8 @@ export default {
       backgroundImage: {
         mobileSidebar: 'url(/images/bg-sidebar-mobile.svg)',
         desktopSidebar: 'url(/images/bg-sidebar-desktop.svg)',
-      }
+      },
+      
     },
   },
   plugins: [],

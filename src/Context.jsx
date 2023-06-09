@@ -4,6 +4,8 @@ const Context = React.createContext()
 
 const ContextProvider = ({ children }) => {
 
+  const [completedSteps, setCompletedSteps] = useState([])
+  
   const [formData, setFormData] = useState({
     step1: {
       name: '',
@@ -11,25 +13,23 @@ const ContextProvider = ({ children }) => {
       phoneNumber: ''
     },
     step2: {
-      selectedPlan: false,
-      
-    },
-    step3: {
-      addOns: false
+      selectedPlan: '',
+      selectedBilling: ''
     },
     
   })
 
-  const updateFormData = (newData) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      ...newData
-    }))
+  const markStepAsCompleted = (step) => {
+    if (!completedSteps.includes(step)) {
+      setCompletedSteps((prevCompletedSteps) => [...prevCompletedSteps, step])
+    }
   }
 
   const value = {
     formData,
-    updateFormData
+    setFormData,
+    markStepAsCompleted,
+    completedSteps
   }
 
   return (

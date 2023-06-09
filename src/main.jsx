@@ -6,7 +6,9 @@ import { ContextProvider } from './Context'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <ContextProvider>
-    <App />
-  </ContextProvider>
+  <Router>
+    <ContextProvider>
+      <App />
+    </ContextProvider>
+  </Router>
 )
