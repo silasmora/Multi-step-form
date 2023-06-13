@@ -1,7 +1,7 @@
-import { useState } from 'react'
-import { Switch } from '@headlessui/react'
+import { useEffect } from 'react';
+import { Switch } from '@headlessui/react';
 
-export default function MyToggle({enabled, setEnabled,handleBillingChange}) {
+export default function MyToggle({ enabled, setEnabled, handleBillingChange }) {
   
   const handleChange = () => {
     setEnabled(!enabled)
@@ -14,7 +14,7 @@ export default function MyToggle({enabled, setEnabled,handleBillingChange}) {
       <Switch
         checked={enabled}
         onChange={handleChange}
-        className={`${enabled ? 'bg-marineBlue' : 'bg-marineBlue'}
+        className={`${enabled ? 'bg-marineBlue' : 'bg-marineBlue/50'}
           relative inline-flex h-[24px] w-[60px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
       >
         <span className="sr-only">Use setting</span>
@@ -25,5 +25,5 @@ export default function MyToggle({enabled, setEnabled,handleBillingChange}) {
         />
       </Switch>
     </div>
-  )
+  );
 }

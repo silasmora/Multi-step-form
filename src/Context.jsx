@@ -14,10 +14,15 @@ const ContextProvider = ({ children }) => {
     },
     step2: {
       selectedPlan: '',
-      selectedBilling: ''
+      selectedBilling: 'monthly'
     },
+    step3: {
+      selectedAddOns: []
+    }
     
   })
+
+  console.log(formData)
 
   const markStepAsCompleted = (step) => {
     if (!completedSteps.includes(step)) {

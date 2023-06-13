@@ -1,50 +1,49 @@
 import React, { useContext, useState } from 'react'
 import MyToggle from '../components/MyToggle'
 import { Context } from '../Context'
+import { useNavigate } from 'react-router-dom'
 
 export const StepTwo = () => {
 
   const {formData, setFormData, markStepAsCompleted} = useContext(Context)
-  const [selectedPlan, setSelectedPlan] = useState('')
-  const [selectedBilling, setSelectedBilling] = useState('monthly')
+  const [selectedPlan, setSelectedPlan] = useState(formData.step2?.selectedPlan || '')
+  const [selectedBilling, setSelectedBilling] = useState(formData.step2?.selectedBilling || '')
   const [enabled, setEnabled] = useState(false)
   const [errors, setErrors] = useState({})
+  const navigate = useNavigate()
 
   const handlePlanChange = (plan) => {
     setSelectedPlan(plan)
-    setFormData({
-      ...formData,
-      step2: {
-        ...formData.step2,
-        selectedPlan: plan
-      }
-    })
+    
   }
 
   const handleBillingChange = (value) => {
-    setSelectedBilling(value)
-    setFormData({
-      ...formData,
-      step2: {
-        ...formData.step2, 
-        selectedBilling: value
-      }
-    })
+    setSelectedBilling(value);
+    
   }
+  
+  console.log(selectedBilling)
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      step2: {
+        ...prevFormData.step2,
+        selectedPlan: selectedPlan,
+        selectedBilling: selectedBilling
+      }
+    }))
+
     const errors = validateForm({
       selectedPlan
     })
     setErrors(errors)
 
     if (Object.keys(errors).length === 0) {
-      console.log('Form submitted:', formData)
       markStepAsCompleted(2)
+      navigate('/step3')
     }
-
   }
 
   const validateForm = (data) => {
@@ -56,14 +55,16 @@ export const StepTwo = () => {
     return errors
   }
 
-  
-
   return (
     <form onSubmit={handleSubmit} className='h-[568px] w-[70%] md:px-10'>
-      <div className='mx-4 pt-8 px-6 bg-white rounded-lg absolute top-28 left-0 right-0 md:relative md:top-0 md:mx-0'>
+      
+      <div className='mx-4 py-8 px-6 bg-white rounded-lg absolute top-28 left-0 right-0 md:relative md:top-0 md:mx-0 md:h-[80%]'>
+        
         <h1 className='text-marineBlue font-bold text-2xl md:text-3xl lg:text-4xl'>Select your plan</h1>
-        <p className='py-4 text-coolGray'>You have the option of monthly or yearly billing</p>
-        {errors.selectedPlan && <p className='text-red-600 font-medium'>{errors.selectedPlan}</p>}
+        <p className='pt-4 text-coolGray'>You have the option of monthly or yearly billing</p>
+        <p className='h-6 text-red-600 font-medium'>{errors.selectedPlan}</p>
+        
+
         <div className='md:flex items-center w-full'>
           <div 
           onClick={() => handlePlanChange('arcade')} className={`flex p-4 ring-1 ring-coolGray/50 rounded-md cursor-pointer hover:ring-purplishBlue md:flex-col md:w-1/3
@@ -105,23 +106,25 @@ export const StepTwo = () => {
           </div>
         </div>
 
-        <div className='flex justify-around bg-magnolia/75 rounded-lg my-8 py-4 px-8 text-coolGray font-medium sm:px-24 md:px-0'>
-
+        <div className='flex justify-around bg-magnolia/75 rounded-lg mt-8 py-4 px-8 text-coolGray font-medium sm:px-24 md:px-0'>
           <p className={`text-${selectedBilling === 'monthly' ? 'marineBlue' : ''}`}>Monthly</p>
-          <MyToggle 
-            enabled={enabled} 
+          <MyToggle
+            enabled={selectedBilling === 'yearly'}
             setEnabled={setEnabled}
             handleBillingChange={handleBillingChange}
-            />
+            
+          />
           <p className={`text-${selectedBilling === 'yearly' ? 'marineBlue' : ''}`}>Yearly</p>
-
         </div>
+
           
       </div>
 
-      <div className="bg-white w-full fixed bottom-0 md:mt-8 md:relative ">
-        <div className='flex justify-between py-4 px-6'>
-          <button className='text-coolGray hover:text-marineBlue cursor-pointer'>Go Back</button>
+      <div className="bg-white w-full fixed bottom-0 md:relative md:h-[20%] flex flex-col justify-end">
+        <div className='flex justify-between py-4 px-4'>
+          <button 
+            onClick={() => navigate('/')}       className='text-coolGray hover:text-marineBlue cursor-pointer'>Go Back
+          </button>
           <button
             type='submit'
             className="bg-marineBlue text-gray-100 py-3 px-4 rounded hover:bg-blue-900">Next Step

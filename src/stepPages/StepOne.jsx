@@ -1,10 +1,13 @@
 import React, { useContext, useState } from 'react'
 import { Context } from '../Context'
+import { useNavigate } from 'react-router-dom'
 
 export const StepOne = () => {
 
   const {formData, setFormData, markStepAsCompleted} = useContext(Context)
   const [errors, setErrors] = useState({})
+
+  const navigate = useNavigate()
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -17,7 +20,7 @@ export const StepOne = () => {
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-
+    
     // Perform form validation
     const errors = validateForm(formData.step1)
     setErrors(errors)
@@ -26,7 +29,9 @@ export const StepOne = () => {
     if (Object.keys(errors).length === 0) {
       // console.log('Form submitted:', formData)
       markStepAsCompleted(1)
+      navigate('/step2')
     }
+
   }
 
   const validateForm = (data) => {
@@ -43,7 +48,7 @@ export const StepOne = () => {
   return (
     <form onSubmit={handleSubmit} className='h-[568px] w-[70%] md:px-10'>
       
-      <div className='mx-4 py-8 px-6 bg-white rounded-lg absolute top-28 left-0 right-0 md:relative md:top-0 md:mx-0'>
+      <div className='mx-4 py-8 px-6 bg-white rounded-lg absolute top-28 left-0 right-0 md:relative md:top-0 md:mx-0 md:h-3/4'>
 
         <h1 className='font-bold text-2xl md:text-3xl lg:text-4xl'>Personal info</h1>
         <p className='py-4 text-coolGray'>Please provide your name, email address, and phone number.</p>
@@ -103,8 +108,8 @@ export const StepOne = () => {
       </div>
       
 
-      <div className="bg-white w-full fixed bottom-0 md:mt-8 md:relative">
-        <div className='flex justify-end py-4 pr-4'>
+      <div className="bg-white w-full fixed bottom-0 md:relative md:h-1/4 flex flex-col justify-end">
+        <div className='flex justify-end py-4 px-4'>
           <button
             type='submit'
             onClick={handleSubmit}
