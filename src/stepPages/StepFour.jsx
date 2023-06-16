@@ -43,7 +43,7 @@ export const StepFour = () => {
     const totalPrice = basePrice + addonsPrice
 
     const formattedBasePrice = selectedBilling === 'monthly' ? `+$${basePrice}/mo` : `$${basePrice}/yr`
-    const formattedAddonsPrice = selectedBilling === 'monthly' ? `+$${addonsPrice}/mo` : `$${addonsPrice}/yr`
+    const formattedAddonsPrice = selectedBilling === 'monthly' ? `+$${addonsPrice}/mo` : `+$${addonsPrice}/yr`
     const formattedTotalPrice = selectedBilling === 'monthly' ? `+$${totalPrice}/mo` : `$${totalPrice}/yr`
   
     return {
