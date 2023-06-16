@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 export const StepFour = () => {
 
-  const {formData} = useContext(Context)
+  const {formData, setFormData} = useContext(Context)
   const navigate = useNavigate()
 
   const getPrice = (selectedPlan, selectedBilling, addons) => {
@@ -54,6 +54,20 @@ export const StepFour = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    setFormData({
+      step1: {
+        name: '',
+        email: '',
+        phoneNumber: ''
+      },
+      step2: {
+        selectedPlan: '',
+        selectedBilling: ''
+      },
+      step3: {
+        selectedAddOns: []
+      }
+    });
     navigate('/step5')
   }
   
@@ -98,9 +112,6 @@ export const StepFour = () => {
               ))}
             </ul>
           )}
-
-          
-                        
         </div>
 
         <div className='flex justify-between px-3 pt-6 md:px-5'>

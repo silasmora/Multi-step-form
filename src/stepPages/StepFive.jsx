@@ -1,6 +1,10 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export const StepFive = () => {
+
+  const navigate = useNavigate()
+
   return (
     <div className='md:px-10 w-[70%]
     '>
@@ -10,6 +14,7 @@ export const StepFive = () => {
         <p className='pt-4 text-coolGray text-lg text-center'>Thank you! Thanks for confirming your subscription! We hope you have fun
       using our platform. If you ever need support, please feel free to email us
       at support@loremgaming.com.</p>
+      <a className='block underline hover:text-purplishBlue cursor-pointer' onClick={() => navigate('/')}>Reset?</a>
       </div>
     </div>
   )
