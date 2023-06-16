@@ -1,5 +1,5 @@
 import React from 'react'
-import { Sidebar } from "./components/sidebar"
+import { Sidebar } from "./components/Sidebar"
 import { StepOne } from "./stepPages/StepOne"
 import { StepTwo } from "./stepPages/StepTwo"
 import { StepThree } from "./stepPages/StepThree"
