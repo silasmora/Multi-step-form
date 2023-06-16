@@ -14,12 +14,11 @@ const ContextProvider = ({ children }) => {
     },
     step2: {
       selectedPlan: '',
-      selectedBilling: 'monthly'
+      selectedBilling: ''
     },
     step3: {
       selectedAddOns: []
     }
-    
   })
 
   console.log(formData)

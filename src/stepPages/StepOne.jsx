@@ -27,7 +27,6 @@ export const StepOne = () => {
 
     // Check if there are any errors
     if (Object.keys(errors).length === 0) {
-      // console.log('Form submitted:', formData)
       markStepAsCompleted(1)
       navigate('/step2')
     }
@@ -42,16 +41,22 @@ export const StepOne = () => {
       errors.email = 'This field is required'
       errors.phoneNumber = 'This field is required'
     }
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+    if (data.email && !emailPattern.test(data.email)) {
+    errors.email = 'Please enter a valid email address.';
+  }
+
     return errors
   }
 
   return (
-    <form onSubmit={handleSubmit} className='h-[568px] w-[70%] md:px-10'>
+    <form onSubmit={handleSubmit} className='w-[70%] md:h-[568px] md:px-10'>
       
-      <div className='mx-4 py-8 px-6 bg-white rounded-lg absolute top-28 left-0 right-0 md:relative md:top-0 md:mx-0 md:h-3/4'>
+      <div className='mx-4 py-8 px-6 bg-white rounded-lg absolute top-28 left-0 right-0 md:relative md:top-0 md:mx-0 md:h-[80%]'>
 
-        <h1 className='font-bold text-2xl md:text-3xl lg:text-4xl'>Personal info</h1>
-        <p className='py-4 text-coolGray'>Please provide your name, email address, and phone number.</p>
+        <h1 className='font-bold text-3xl lg:text-4xl'>Personal info</h1>
+        <p className='py-4 text-coolGray text-lg'>Please provide your name, email address, and phone number.</p>
         
         <div className='flex flex-col mt-8'>
           <div className='flex justify-between'>
@@ -74,12 +79,12 @@ export const StepOne = () => {
         <div className='flex flex-col my-4'>
           <div className='flex justify-between'>
             <label className='text-marineBlue/75 mb-[2px]' id='email' >Email Address</label>
-            {errors.name && <p className='text-red-600 font-medium'>{errors.email}</p>}
+            {errors.email && <p className='text-red-600 font-medium'>{errors.email}</p>}
           </div>
           <input
             onChange={handleChange}
             value={formData.step1.email}
-            className={`p-2.5 ring-1 ring-coolGray rounded-md focus:outline-none focus:ring-2 focus:ring-purplishBlue ${errors.name && 'ring-red-600'} `} 
+            className={`p-2.5 ring-1 ring-coolGray rounded-md focus:outline-none focus:ring-2 focus:ring-purplishBlue ${errors.email && 'ring-red-600'} `} 
             type="text" 
             name="email" 
             id="email" 
@@ -91,12 +96,12 @@ export const StepOne = () => {
         <div className='flex flex-col'>
           <div className='flex justify-between'>
             <label className='text-marineBlue/75 mb-[2px]' id='email' >Phone Number</label>
-            {errors.name && <p className='text-red-600 font-medium'>{errors.phoneNumber}</p>}
+            {errors.phoneNumber && <p className='text-red-600 font-medium'>{errors.phoneNumber}</p>}
           </div>
           <input
             onChange={handleChange} 
             value={formData.step1.phoneNumber} 
-            className={`p-2.5 ring-1 ring-coolGray rounded-md focus:outline-none focus:ring-2 focus:ring-purplishBlue ${errors.name && 'ring-red-600'} `}
+            className={`p-2.5 ring-1 ring-coolGray rounded-md focus:outline-none focus:ring-2 focus:ring-purplishBlue ${errors.phoneNumber && 'ring-red-600'} `}
             type="text" 
             name="phoneNumber" 
             id="phoneNumber" 
@@ -108,8 +113,8 @@ export const StepOne = () => {
       </div>
       
 
-      <div className="bg-white w-full fixed bottom-0 md:relative md:h-1/4 flex flex-col justify-end">
-        <div className='flex justify-end py-4 px-4'>
+      <div className="bg-white w-full fixed bottom-0 md:relative md:h-[20%] flex flex-col justify-end">
+        <div className='flex justify-end py-4 px-6'>
           <button
             type='submit'
             onClick={handleSubmit}
